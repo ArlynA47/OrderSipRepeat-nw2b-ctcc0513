@@ -1,4 +1,5 @@
 OrderSipRepeat is a desktop application that proposes to function as a coffee and milk tea ordering system.
+PASSWORD: OSR-2024
 
 I. Data Structures and Abstract Data Types
     - ArrayList for Menu Items (items): Stores available menu items.
