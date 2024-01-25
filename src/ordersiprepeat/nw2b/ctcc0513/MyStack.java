@@ -4,11 +4,6 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- *
- * @author arlyn musada
- */
-
-/**
  * A LIFO (Last-In-First-Out) data structure implemented using linked nodes.
  *
  * @param <T> The type of data stored in the stack.
@@ -24,6 +19,25 @@ public class MyStack<T> implements Iterable<T> {
 
         Node(T data) {
             this.data = data;
+        }
+    }
+
+    /**
+     * Constructs an empty stack.
+     */
+    public MyStack() {
+        this.top = null;
+    }
+
+    /**
+     * Constructs a new stack that is a copy of another stack.
+     *
+     * @param otherStack The stack to copy.
+     */
+    public MyStack(MyStack<T> otherStack) {
+        this.top = null;
+        for (T item : otherStack) {
+            this.push(item);
         }
     }
 

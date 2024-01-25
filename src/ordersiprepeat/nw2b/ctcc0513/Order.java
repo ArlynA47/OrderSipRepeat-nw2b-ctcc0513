@@ -18,14 +18,17 @@ public class Order extends javax.swing.JFrame {
     
     ArrayList<MenuItem> items;                                                  // ArrayList for the menu items; MenuItem is a custom class
     MyStack<String> orderStack = new MyStack<>();                               // Stack for the list of items intended for an order; MyStack is a custom class
+    MyStack<String> orderInfoStack = new MyStack<>();
     MyStack<Integer> amountStack = new MyStack<>();                             // Stack for the price of each of the list of items intended for an order
     MyQueue<Integer> orderQueue = new MyQueue<>();                              // Queue for the placed orders; MyQueue is a custom class
+    MyQueue<Integer> itemsNumbersQueue = new MyQueue<>();
+    MyQueue<String> orderInfoQueue = new MyQueue<>();  
     ArrayList<Integer> ordersForClaim = new ArrayList<>();                      // ArrayList for the orders ready for claim
     String selectedDrink;
     String totalAmount = "", totalAmountString = "", paymentReceivedString = "";
     int sizeM, sLevel; // drink size and sweetness level
     double paymentReceivedDouble = 0, totalAmountDouble = 0, change = 0;
-    int orderNumber = 0;
+    int orderNumber = 0, itemsNumbers = 0;
     Font headFont = new Font("Monospaced", Font.BOLD, 15), recFont = new Font("Monospaced", Font.BOLD, 12), itemFont = new Font("Monospaced", Font.PLAIN, 10);
     
     /**
@@ -84,10 +87,6 @@ public class Order extends javax.swing.JFrame {
         panelReceipt.setLayout(new javax.swing.BoxLayout(panelReceipt, javax.swing.BoxLayout.Y_AXIS));
         panelQueue1.setLayout(new javax.swing.BoxLayout(panelQueue1, javax.swing.BoxLayout.Y_AXIS));
         panelQueue2.setLayout(new javax.swing.BoxLayout(panelQueue2, javax.swing.BoxLayout.Y_AXIS));
-        panelQueue3.setLayout(new javax.swing.BoxLayout(panelQueue3, javax.swing.BoxLayout.Y_AXIS));
-        panelQueue4.setLayout(new javax.swing.BoxLayout(panelQueue4, javax.swing.BoxLayout.Y_AXIS));
-        panelQueue5.setLayout(new javax.swing.BoxLayout(panelQueue5, javax.swing.BoxLayout.Y_AXIS));
-        panelQueue6.setLayout(new javax.swing.BoxLayout(panelQueue6, javax.swing.BoxLayout.Y_AXIS));
         panelClaim1.setLayout(new javax.swing.BoxLayout(panelClaim1, javax.swing.BoxLayout.Y_AXIS));
         panelClaim2.setLayout(new javax.swing.BoxLayout(panelClaim2, javax.swing.BoxLayout.Y_AXIS));
         panelClaim3.setLayout(new javax.swing.BoxLayout(panelClaim3, javax.swing.BoxLayout.Y_AXIS));
@@ -137,10 +136,6 @@ public class Order extends javax.swing.JFrame {
         panelOrderQueue = new javax.swing.JPanel();
         panelQueue1 = new javax.swing.JPanel();
         panelQueue2 = new javax.swing.JPanel();
-        panelQueue3 = new javax.swing.JPanel();
-        panelQueue6 = new javax.swing.JPanel();
-        panelQueue4 = new javax.swing.JPanel();
-        panelQueue5 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         labelOrderCount = new javax.swing.JLabel();
         panelClaim = new javax.swing.JPanel();
@@ -196,12 +191,12 @@ public class Order extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(254, 247, 234));
         jPanel4.setBorder(javax.swing.BorderFactory.createMatteBorder(3, 3, 3, 3, new java.awt.Color(124, 92, 32)));
         jPanel4.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 jPanel4AncestorAdded(evt);
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
         });
 
@@ -367,7 +362,6 @@ public class Order extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Order");
-        setPreferredSize(new java.awt.Dimension(1900, 1030));
         setSize(new java.awt.Dimension(1900, 1030));
 
         jPanel1.setBackground(new java.awt.Color(254, 255, 255));
@@ -466,13 +460,13 @@ public class Order extends javax.swing.JFrame {
         panelOrderQueue.setMinimumSize(new java.awt.Dimension(552, 298));
 
         panelQueue1.setBackground(new java.awt.Color(255, 255, 255));
-        panelQueue1.setMinimumSize(new java.awt.Dimension(98, 260));
+        panelQueue1.setMinimumSize(new java.awt.Dimension(238, 260));
 
         javax.swing.GroupLayout panelQueue1Layout = new javax.swing.GroupLayout(panelQueue1);
         panelQueue1.setLayout(panelQueue1Layout);
         panelQueue1Layout.setHorizontalGroup(
             panelQueue1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 238, Short.MAX_VALUE)
         );
         panelQueue1Layout.setVerticalGroup(
             panelQueue1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -480,72 +474,16 @@ public class Order extends javax.swing.JFrame {
         );
 
         panelQueue2.setBackground(new java.awt.Color(255, 255, 255));
-        panelQueue2.setMinimumSize(new java.awt.Dimension(98, 260));
+        panelQueue2.setMinimumSize(new java.awt.Dimension(238, 260));
 
         javax.swing.GroupLayout panelQueue2Layout = new javax.swing.GroupLayout(panelQueue2);
         panelQueue2.setLayout(panelQueue2Layout);
         panelQueue2Layout.setHorizontalGroup(
             panelQueue2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 238, Short.MAX_VALUE)
         );
         panelQueue2Layout.setVerticalGroup(
             panelQueue2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
-
-        panelQueue3.setBackground(new java.awt.Color(255, 255, 255));
-        panelQueue3.setMinimumSize(new java.awt.Dimension(98, 260));
-
-        javax.swing.GroupLayout panelQueue3Layout = new javax.swing.GroupLayout(panelQueue3);
-        panelQueue3.setLayout(panelQueue3Layout);
-        panelQueue3Layout.setHorizontalGroup(
-            panelQueue3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelQueue3Layout.setVerticalGroup(
-            panelQueue3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
-
-        panelQueue6.setBackground(new java.awt.Color(255, 255, 255));
-        panelQueue6.setMinimumSize(new java.awt.Dimension(98, 260));
-
-        javax.swing.GroupLayout panelQueue6Layout = new javax.swing.GroupLayout(panelQueue6);
-        panelQueue6.setLayout(panelQueue6Layout);
-        panelQueue6Layout.setHorizontalGroup(
-            panelQueue6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelQueue6Layout.setVerticalGroup(
-            panelQueue6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
-
-        panelQueue4.setBackground(new java.awt.Color(255, 255, 255));
-        panelQueue4.setMinimumSize(new java.awt.Dimension(98, 260));
-
-        javax.swing.GroupLayout panelQueue4Layout = new javax.swing.GroupLayout(panelQueue4);
-        panelQueue4.setLayout(panelQueue4Layout);
-        panelQueue4Layout.setHorizontalGroup(
-            panelQueue4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelQueue4Layout.setVerticalGroup(
-            panelQueue4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
-
-        panelQueue5.setBackground(new java.awt.Color(255, 255, 255));
-        panelQueue5.setMinimumSize(new java.awt.Dimension(98, 260));
-
-        javax.swing.GroupLayout panelQueue5Layout = new javax.swing.GroupLayout(panelQueue5);
-        panelQueue5.setLayout(panelQueue5Layout);
-        panelQueue5Layout.setHorizontalGroup(
-            panelQueue5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelQueue5Layout.setVerticalGroup(
-            panelQueue5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 260, Short.MAX_VALUE)
         );
 
@@ -555,38 +493,19 @@ public class Order extends javax.swing.JFrame {
             panelOrderQueueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOrderQueueLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addComponent(panelQueue1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(103, 103, 103)
-                .addComponent(panelQueue3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addComponent(panelQueue4, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelQueue1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(panelQueue5, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addComponent(panelQueue6, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
-            .addGroup(panelOrderQueueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelOrderQueueLayout.createSequentialGroup()
-                    .addGap(107, 107, 107)
-                    .addComponent(panelQueue2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(374, Short.MAX_VALUE)))
+                .addComponent(panelQueue2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22))
         );
         panelOrderQueueLayout.setVerticalGroup(
             panelOrderQueueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelOrderQueueLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelOrderQueueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelQueue5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelQueue4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelQueue6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelQueue3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelQueue2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelQueue1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
-            .addGroup(panelOrderQueueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelOrderQueueLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panelQueue2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         jLabel19.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18)); // NOI18N
@@ -1077,7 +996,7 @@ public class Order extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1940, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 1900, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1317,6 +1236,7 @@ public class Order extends javax.swing.JFrame {
         String size="";
         String slvl="";
         String orderString = "";
+        String orderString2 = "";
         String quantityString = "";
 
         // gets the selected milktea; initial prices of milktea
@@ -1450,10 +1370,14 @@ public class Order extends javax.swing.JFrame {
 
         // String for the order item
         orderString = dtype + "   | " + size + " | " + slvl + " |" + toppings + " |" + extras + " | " + quantityString + "     ..........     Php " + subtotalCont;
-
+        orderString2 = dtype + "   | " + size + " | " + slvl + " |" + toppings + " |" + extras + " | " + quantityString;
+        
         orderStack.push(orderString); // stacks the order item string
         amountStack.push(subtotalCont); // stacks the order item price
 
+        orderInfoStack.push(orderString2); // queues the order information
+        itemsNumbers++;
+        
         // Refresh panel
         clearPanelOrder();
         displayOrderItems();
@@ -1481,6 +1405,8 @@ public class Order extends javax.swing.JFrame {
         // reset the quantity spinner
         spQuantity.setValue(1);
         
+        itemsNumbers = 0;
+        
         // reset the comboboxes
         cbDrink.setSelectedIndex(0);
         cbSize.setSelectedIndex(0);
@@ -1496,12 +1422,14 @@ public class Order extends javax.swing.JFrame {
             // Remove the last item and its amount from their respective stacks:
             orderStack.pop();                                                   // Removes the most recently added item from the order stack
             amountStack.pop();                                                  // Removes the amount associated with that item from the amount stack
+            orderInfoStack.pop();
         }
 
+        itemsNumbers--;
+        
         // Refresh the order panel
         clearPanelOrder(); 
         displayOrderItems();
-        
         
     }//GEN-LAST:event_btUndoActionPerformed
 
@@ -1514,6 +1442,7 @@ public class Order extends javax.swing.JFrame {
             // Completely clear both the order stack and amount stack:
             orderStack.clear();                                                 // Removes all items from the order stack
             amountStack.clear();                                                // Removes all items from the amount stack
+            orderInfoStack.clear();                                             // Removes all items from the order information stack
         }
         
         // Refresh the order panel
@@ -1535,8 +1464,8 @@ public class Order extends javax.swing.JFrame {
             double ta = getTotal();                                             // Calls a method to calculate the total cost of the order
             totalAmountString = Double.toString(ta);                          // Converts the total to a string for display
             totalAmount = "Php " + ta;                                          // Formats the total amount with a currency label
-            labelTotal.setText(totalAmount);                                // Updates a label to show the total amount
-
+            labelTotal.setText(totalAmount);                                // Updates a label to show the total amount                               
+            
             // Show the payment window:
             framePay.setVisible(true);                                        // Makes the payment window visible
             framePay.setLocationRelativeTo(null);                             // Centers the payment window on the screen
@@ -1589,6 +1518,8 @@ public class Order extends javax.swing.JFrame {
         // Add the order number back to the queue:
         orderQueue.enqueue(orderNumber);                                    // Puts the order number at the back of the queue
 
+        itemsNumbersQueue.enqueue(itemsNumbers);
+        
         // Clear everything for a new order:
         clearAllForNewOrder();                                                  // This likely resets input fields and other elements for a fresh order
 
@@ -1608,6 +1539,13 @@ public class Order extends javax.swing.JFrame {
             int orderDequeued = orderQueue.dequeue();                   // Removes the first order from the queue
             ordersForClaim.add(orderDequeued);                        // Adds the removed order to the list of claimable orders
 
+            
+            int on = itemsNumbersQueue.dequeue();
+            for(int i=0; i<on; i++) {
+                orderInfoQueue.dequeue();
+            }
+                
+            
             // Update the visual displays for both queues:**
             clearPanelClaim();                                          // Clears the panel for claimed orders to prepare for fresh display
             displayOrdersForClaim();                                    // Shows the updated list of claimable orders
@@ -1769,6 +1707,7 @@ public class Order extends javax.swing.JFrame {
             JLabel textLabel1 = new JLabel("  " + text);                        // Create a label for each item
             textLabel1.setFont(itemFont);                                   
             panelReceipt.add(textLabel1);
+            
         }
 
         // Add a separator line:
@@ -1796,6 +1735,10 @@ public class Order extends javax.swing.JFrame {
         JLabel textLabel6 = new JLabel("-----------------------------------------------------------");
         textLabel6.setFont(recFont);
         panelReceipt.add(textLabel6);
+        
+        for(String oi: orderInfoStack) {
+            orderInfoQueue.enqueue(oi);
+        }
     }
 
     
@@ -1805,34 +1748,62 @@ public class Order extends javax.swing.JFrame {
         // Prepare variables for counting and displaying orders:
         int orderCountNum = 0;                                                  // Keeps track of the number of orders processed
         MyQueue<Integer> copy = new MyQueue<>(orderQueue);             // Creates a copy of the actual order queue to avoid modifying it
+        MyQueue<String> copyOrders = new MyQueue<>(orderInfoQueue);
+        MyQueue<Integer> copyOrdersNumbers = new MyQueue<>(itemsNumbersQueue);
         int queueCount = copy.size();                                           // Gets the total number of orders in the queue
         labelOrderCount.setText("" + queueCount);                               // Updates a label to show the total count
 
+        
           // Process each order in the queue:
           while (!copy.isEmpty()) {                                             // Continues until all orders have been displayed
-            orderCountNum++;                                                    // Increment the order count
             int item = copy.dequeue();                                          // Removes the next order from the copy queue
             JLabel textLabel = new JLabel(Integer.toString(item));      // Creates a label to display the order number
             textLabel.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 18));
-
-            // Distribute orders visually across multiple panels:
-            if (orderCountNum <= 12) {
-              panelQueue1.add(textLabel);                                   // Add the label to the first panel if it's within the first 12 orders
-            } else if (orderCountNum <= 24) {
-              panelQueue2.add(textLabel);                                   // Add to the second panel for orders 13-24
-            } else if (orderCountNum <= 36) {
-              panelQueue3.add(textLabel);                                   // Add to the third panel for orders 25-36, and so on
-            } // ... (similar conditions for other panels) 
-            else if(orderCountNum>36 && orderCountNum<=48) {
-                panelQueue4.add(textLabel);
-            } else if(orderCountNum>48 && orderCountNum<=60) {
-                panelQueue5.add(textLabel);
-            } else {
-                panelQueue6.add(textLabel);
+            
+            int in = 0;
+            
+            if(!copyOrdersNumbers.isEmpty()) {
+                in = copyOrdersNumbers.dequeue();
             }
             
+            // Distribute orders visually across multiple panels:
+            if (orderCountNum <= 14) {
+                orderCountNum++;                                                    // Increment the order count
+              panelQueue1.add(textLabel);                                   // Add the label to the first panel if it's within the first 12 orders
+            
+            for(int i=0; i<in; i++) {
+                String oi = "";
+                if(!copyOrders.isEmpty()) {
+                    oi = copyOrders.dequeue();
+                } 
+                JLabel textLabel2 = new JLabel(oi);     
+                textLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 10));
+                if (orderCountNum <= 14) {
+                    panelQueue1.add(textLabel2); 
+                    orderCountNum++; 
+                } else {
+                    panelQueue2.add(textLabel2); 
+                    orderCountNum++; 
+                }
+            }   
+            
+            } else { 
+                orderCountNum++;                                                    // Increment the order count
+              panelQueue2.add(textLabel);                                   // Add to the second panel for orders >14
+                for(int i=0; i<in; i++) {
+                String oi = "";
+                if(!copyOrders.isEmpty()) {
+                    oi = copyOrders.dequeue();
+                }
+                JLabel textLabel2 = new JLabel(oi);     
+                textLabel2.setFont(new java.awt.Font("Arial Rounded MT Bold", 1, 10));
+                panelQueue2.add(textLabel2); 
+                orderCountNum++; 
+                }    
         }
         
+    }
+    
     }
     
     // This method displays orders that are ready for claiming, distributing them across multiple panels.
@@ -1904,18 +1875,6 @@ public class Order extends javax.swing.JFrame {
         panelQueue2.removeAll();
         panelQueue2.revalidate();
         panelQueue2.repaint();
-        panelQueue3.removeAll();
-        panelQueue3.revalidate();
-        panelQueue3.repaint();
-        panelQueue4.removeAll();
-        panelQueue4.revalidate();
-        panelQueue4.repaint();
-        panelQueue5.removeAll();
-        panelQueue5.revalidate();
-        panelQueue5.repaint();
-        panelQueue6.removeAll();
-        panelQueue6.revalidate();
-        panelQueue6.repaint();
     }
     
     public void clearPanelClaim() {
@@ -1942,6 +1901,8 @@ public class Order extends javax.swing.JFrame {
     public void clearAllForNewOrder() {
         orderStack.clear();
         amountStack.clear();
+        orderInfoStack.clear();
+        itemsNumbers = 0;
         
         labelTotal1.setText("Php 0.0");
         
@@ -2061,11 +2022,6 @@ public class Order extends javax.swing.JFrame {
     private javax.swing.JPanel panelOrderQueue;
     private javax.swing.JPanel panelQueue1;
     private javax.swing.JPanel panelQueue2;
-    private javax.swing.JPanel panelQueue3;
-    private javax.swing.JPanel panelQueue4;
-    private javax.swing.JPanel panelQueue5;
-    private javax.swing.JPanel panelQueue6;
-    private javax.swing.JPanel panelQueue8;
     private javax.swing.JPanel panelReceipt;
     private javax.swing.JScrollPane sPane1;
     private javax.swing.JSpinner spQuantity;
