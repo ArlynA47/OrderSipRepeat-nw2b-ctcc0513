@@ -1197,7 +1197,7 @@ public class Order extends javax.swing.JFrame {
     }//GEN-LAST:event_cT9ActionPerformed
 
     private void cE1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cE1ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_cE1ActionPerformed
 
     private void cE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cE2ActionPerformed
